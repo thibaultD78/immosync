@@ -9,4 +9,5 @@ open module com.immosync.immosyncapp {
     requires jakarta.persistence;
     requires org.hibernate.orm.core;
     requires spring.data.commons;
+    requires spring.tx;
 }

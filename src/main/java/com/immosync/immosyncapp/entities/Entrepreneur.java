@@ -37,13 +37,13 @@ public class Entrepreneur {
     @OneToMany(mappedBy = "entrepreneur")
     private Set<DevisEntrepreneur> devisEntrepreneurs = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "entrepreneurs")
+    @ManyToMany
     private Set<DevisType> devisTypes = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "entrepreneurs")
+    @ManyToMany
     private Set<Categorie> categories = new LinkedHashSet<>();
 
-    @ManyToMany(mappedBy = "entrepreneurs")
+    @ManyToMany
     private Set<Prestataire> prestataires = new LinkedHashSet<>();
 
     public Integer getId() {

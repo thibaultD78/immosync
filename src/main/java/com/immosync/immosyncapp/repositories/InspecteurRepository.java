@@ -1,15 +1,14 @@
 package com.immosync.immosyncapp.repositories;
 
-import com.immosync.immosyncapp.entities.Bien;
-import com.immosync.immosyncapp.entities.Utilisateur;
+
+import com.immosync.immosyncapp.entities.Inspecteur;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface BienRepository extends JpaRepository<Bien, Integer> {
-
+public interface InspecteurRepository extends JpaRepository<Inspecteur, Integer> {
     @Override
-    List<Bien> findAll();
+    List<Inspecteur> findAll();
 }

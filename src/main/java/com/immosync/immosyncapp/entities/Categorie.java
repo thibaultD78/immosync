@@ -16,9 +16,6 @@ public class Categorie {
     @Column(name = "libelle", nullable = false, length = 100)
     private String libelle;
 
-    @ManyToMany(mappedBy = "categories")
-    private Set<Entrepreneur> entrepreneurs = new LinkedHashSet<>();
-
     @OneToMany(mappedBy = "categorie")
     private Set<Prestataire> prestataires = new LinkedHashSet<>();
 
@@ -36,14 +33,6 @@ public class Categorie {
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
-    }
-
-    public Set<Entrepreneur> getEntrepreneurs() {
-        return entrepreneurs;
-    }
-
-    public void setEntrepreneurs(Set<Entrepreneur> entrepreneurs) {
-        this.entrepreneurs = entrepreneurs;
     }
 
     public Set<Prestataire> getPrestataires() {

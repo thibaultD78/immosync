@@ -24,12 +24,6 @@ public class DevisType {
     @JoinColumn(name = "chantier_id")
     private Chantier chantier;
 
-    @ManyToMany(mappedBy = "devisTypes")
-    private Set<Entrepreneur> entrepreneurs = new LinkedHashSet<>();
-
-    @ManyToMany(mappedBy = "devisTypes")
-    private Set<Prestataire> prestataires = new LinkedHashSet<>();
-
     @OneToMany(mappedBy = "devisType")
     private Set<DevisTypePrestation> devisTypePrestations = new LinkedHashSet<>();
 
@@ -63,22 +57,6 @@ public class DevisType {
 
     public void setChantier(Chantier chantier) {
         this.chantier = chantier;
-    }
-
-    public Set<Entrepreneur> getEntrepreneurs() {
-        return entrepreneurs;
-    }
-
-    public void setEntrepreneurs(Set<Entrepreneur> entrepreneurs) {
-        this.entrepreneurs = entrepreneurs;
-    }
-
-    public Set<Prestataire> getPrestataires() {
-        return prestataires;
-    }
-
-    public void setPrestataires(Set<Prestataire> prestataires) {
-        this.prestataires = prestataires;
     }
 
     public Set<DevisTypePrestation> getDevisTypePrestations() {

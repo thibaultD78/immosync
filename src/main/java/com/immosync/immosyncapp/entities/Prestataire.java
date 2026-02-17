@@ -28,17 +28,8 @@ public class Prestataire {
     @JoinColumn(name = "categorie_id")
     private Categorie categorie;
 
-    @OneToMany(mappedBy = "prestation")
-    private Set<DevisEntrepreneurPrestataire> devisEntrepreneurPrestataires = new LinkedHashSet<>();
-
-    @ManyToMany(mappedBy = "prestataires")
-    private Set<DevisType> devisTypes = new LinkedHashSet<>();
-
     @OneToMany(mappedBy = "prestataire")
     private Set<DevisTypePrestation> devisTypePrestations = new LinkedHashSet<>();
-
-    @ManyToMany(mappedBy = "prestataires")
-    private Set<Entrepreneur> entrepreneurs = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -80,36 +71,12 @@ public class Prestataire {
         this.categorie = categorie;
     }
 
-    public Set<DevisEntrepreneurPrestataire> getDevisEntrepreneurPrestataires() {
-        return devisEntrepreneurPrestataires;
-    }
-
-    public void setDevisEntrepreneurPrestataires(Set<DevisEntrepreneurPrestataire> devisEntrepreneurPrestataires) {
-        this.devisEntrepreneurPrestataires = devisEntrepreneurPrestataires;
-    }
-
-    public Set<DevisType> getDevisTypes() {
-        return devisTypes;
-    }
-
-    public void setDevisTypes(Set<DevisType> devisTypes) {
-        this.devisTypes = devisTypes;
-    }
-
     public Set<DevisTypePrestation> getDevisTypePrestations() {
         return devisTypePrestations;
     }
 
     public void setDevisTypePrestations(Set<DevisTypePrestation> devisTypePrestations) {
         this.devisTypePrestations = devisTypePrestations;
-    }
-
-    public Set<Entrepreneur> getEntrepreneurs() {
-        return entrepreneurs;
-    }
-
-    public void setEntrepreneurs(Set<Entrepreneur> entrepreneurs) {
-        this.entrepreneurs = entrepreneurs;
     }
 
 }

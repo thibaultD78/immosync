@@ -36,16 +36,7 @@ public class Chantier {
     private Inspecteur inspecteur;
 
     @OneToMany(mappedBy = "chantier")
-    private Set<DevisEntrepreneur> devisEntrepreneurs = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "chantier")
     private Set<DevisType> devisTypes = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "chantier")
-    private Set<Document> documents = new LinkedHashSet<>();
-
-    @OneToMany(mappedBy = "chantier")
-    private Set<Photo> photos = new LinkedHashSet<>();
 
     public Integer getId() {
         return id;
@@ -103,36 +94,12 @@ public class Chantier {
         this.inspecteur = inspecteur;
     }
 
-    public Set<DevisEntrepreneur> getDevisEntrepreneurs() {
-        return devisEntrepreneurs;
-    }
-
-    public void setDevisEntrepreneurs(Set<DevisEntrepreneur> devisEntrepreneurs) {
-        this.devisEntrepreneurs = devisEntrepreneurs;
-    }
-
     public Set<DevisType> getDevisTypes() {
         return devisTypes;
     }
 
     public void setDevisTypes(Set<DevisType> devisTypes) {
         this.devisTypes = devisTypes;
-    }
-
-    public Set<Document> getDocuments() {
-        return documents;
-    }
-
-    public void setDocuments(Set<Document> documents) {
-        this.documents = documents;
-    }
-
-    public Set<Photo> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(Set<Photo> photos) {
-        this.photos = photos;
     }
 
 }

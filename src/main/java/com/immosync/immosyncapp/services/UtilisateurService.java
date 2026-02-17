@@ -18,9 +18,6 @@ public class UtilisateurService {
         return userRepository.findByEmailAndPassword(loginUser, pwdUser);
     }
 
-    /**
-     * Récupère tous les utilisateurs
-     */
     public List<Utilisateur> getAllUsers() {
         return userRepository.findAll();
     }

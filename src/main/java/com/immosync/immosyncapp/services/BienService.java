@@ -3,6 +3,7 @@ package com.immosync.immosyncapp.services;
 import com.immosync.immosyncapp.entities.Bien;
 import com.immosync.immosyncapp.entities.Utilisateur;
 import com.immosync.immosyncapp.repositories.BienRepository;
+import com.immosync.immosyncapp.repositories.UtilisateurRepository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -12,18 +13,18 @@ import java.util.List;
 public class BienService {
 
     private final BienRepository bienRepository;
+    private final UtilisateurRepository utilisateurRepository;
 
-    public BienService(BienRepository bienRepository) {
+    public BienService(BienRepository bienRepository, UtilisateurRepository utilisateurRepository) {
         this.bienRepository = bienRepository;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     public List<Bien> getAllBiens() {
         return bienRepository.findAll();
     }
 
-    public List<Bien> getBiensUtilisateur(Utilisateur utilisateur) {
-        return bienRepository.findByUtilisateur(utilisateur);
-    }
+
     public Bien creerBien(String adresse, String ville, String cp, BigDecimal surface, Utilisateur proprietaire) {
         Bien nouveauBien = new Bien();
         nouveauBien.setAdresse(adresse);
@@ -34,7 +35,7 @@ public class BienService {
 
         return bienRepository.save(nouveauBien);
     }
-    public Bien modifierBien(Integer id, String adresse, String ville, String cp, BigDecimal surface) {
+    public Bien modifierBien(Integer id, String adresse, String ville, String cp, BigDecimal surface,Integer idProprietaire) {
         Bien bienExistant = bienRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Bien introuvable avec l'ID : " + id));
 
@@ -42,6 +43,9 @@ public class BienService {
         bienExistant.setVille(ville);
         bienExistant.setCodePostal(cp);
         bienExistant.setSurface(surface);
+        Utilisateur nouveauProprio = utilisateurRepository.findById(idProprietaire)
+                .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
+        bienExistant.setUtilisateur(nouveauProprio);
 
         return bienRepository.save(bienExistant);
     }
