@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="700.0" style="-fx-background-color: #DDE1E7;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.immosync.immosyncapp.controller.creation_bienController">
+    <children>
+        <Label layoutX="25.0" layoutY="25.0" text="IMMO" textFill="#2C3E50">
+            <font><Font name="System Bold" size="20.0" /></font>
+        </Label>
+        <Label layoutX="85.0" layoutY="25.0" text="SYNC" textFill="#FF9F1C">
+            <font><Font name="System Bold" size="20.0" /></font>
+        </Label>
+
+        <Button layoutX="530.0" layoutY="25.0" mnemonicParsing="false" onAction="#retourAccueil" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #888888; -fx-background-radius: 20; -fx-cursor: hand;" text="Accueil" textFill="WHITE">
+            <font><Font name="System Bold" size="13.0" /></font>
+        </Button>
+
+        <Label layoutX="262.0" layoutY="85.0" text="Créer un bien" textFill="#333333">
+            <font><Font name="System Bold" size="28.0" /></font>
+        </Label>
+
+        <VBox layoutX="240.0" layoutY="145.0" prefWidth="220.0" spacing="15.0">
+            <children>
+                <VBox spacing="5.0">
+                    <children>
+                        <Label text="Adresse" textFill="#333333">
+                            <font><Font name="System Bold" size="14.0" /></font>
+                        </Label>
+                        <TextField fx:id="adresseField" prefHeight="30.0" style="-fx-background-color: white; -fx-background-radius: 5;" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Label text="Ville" textFill="#333333">
+                            <font><Font name="System Bold" size="14.0" /></font>
+                        </Label>
+                        <TextField fx:id="villeField" prefHeight="30.0" style="-fx-background-color: white; -fx-background-radius: 5;" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="5.0">
+                    <children>
+                        <Label text="Propriétaire" textFill="#333333">
+                            <font><Font name="System Bold" size="14.0" /></font>
+                        </Label>
+                        <ComboBox fx:id="proprietaireCombo" prefHeight="30.0" prefWidth="220.0" promptText="Choisir un propriétaire" style="-fx-background-color: white; -fx-background-radius: 5;" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+
+        <Button layoutX="290.0" layoutY="380.0" mnemonicParsing="false" onAction="#handleEnregistrer" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #3B5FA0; -fx-background-radius: 15; -fx-cursor: hand;" text="Enregistrer" textFill="WHITE">
+            <font><Font name="System Bold" size="13.0" /></font>
+        </Button>
+    </children>
+</AnchorPane>
+

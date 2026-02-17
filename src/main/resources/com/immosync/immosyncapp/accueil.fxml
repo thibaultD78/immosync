@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="450.0" prefWidth="700.0" style="-fx-background-color: #DDE1E7;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.immosync.immosyncapp.controller.accueilController">
+    <children>
+        <Pane layoutX="20.0" layoutY="20.0" prefHeight="80.0" prefWidth="660.0">
+            <children>
+                <Label layoutX="14.0" layoutY="14.0" text="IMMO" textFill="#2C3E50">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+                <Label layoutX="74.0" layoutY="14.0" text="SYNC" textFill="#FF9F1C">
+                    <font>
+                        <Font name="System Bold" size="20.0" />
+                    </font>
+                </Label>
+
+                <Button layoutX="480.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleLogout" prefHeight="35.0" prefWidth="150.0" style="-fx-background-color: #888888; -fx-background-radius: 20; -fx-cursor: hand;" text="Déconnexion" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold" size="13.0" />
+                    </font>
+                </Button>
+            </children>
+        </Pane>
+
+        <Label layoutX="185.0" layoutY="110.0" text="Bienvenue sur votre compte" textFill="#888888">
+            <font>
+                <Font name="System Bold" size="24.0" />
+            </font>
+        </Label>
+
+        <Label layoutX="140.0" layoutY="190.0" text="Veuillez sélectionner ce que vous voulez manager :" textFill="#333333">
+            <font>
+                <Font name="System Bold" size="18.0" />
+            </font>
+        </Label>
+
+        <HBox alignment="CENTER" layoutX="100.0" layoutY="240.0" prefHeight="150.0" prefWidth="500.0" spacing="80.0">
+            <children>
+                <VBox alignment="CENTER" onMouseClicked="#goToBiens" prefHeight="150.0" prefWidth="120.0" style="-fx-cursor: hand;">
+                    <children>
+                  <ImageView fitHeight="123.0" fitWidth="120.0">
+                     <image>
+                        <Image url="@../../../images/page_accueil/maison.png" />
+                     </image>
+                  </ImageView>
+                        <Label text="biens" textFill="#333333">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <VBox alignment="CENTER" onMouseClicked="#goToChantier" prefHeight="150.0" prefWidth="120.0" style="-fx-cursor: hand;">
+                    <children>
+                  <ImageView fitHeight="123.0" fitWidth="120.0">
+                     <image>
+                        <Image url="@../../../images/page_accueil/immeuble.png" />
+                     </image>
+                  </ImageView>
+                        <Label text="chantier" textFill="#333333">
+                            <font>
+                                <Font name="System Bold" size="20.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="550.0" prefWidth="750.0" style="-fx-background-color: #DDE1E7;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.immosync.immosyncapp.controller.creation_devis">
+    <children>
+        <Label layoutX="25.0" layoutY="25.0" text="IMMO" textFill="#2C3E50">
+            <font><Font name="System Bold" size="20.0" /></font>
+        </Label>
+        <Label layoutX="85.0" layoutY="25.0" text="SYNC" textFill="#FF9F1C">
+            <font><Font name="System Bold" size="20.0" /></font>
+        </Label>
+        <Button layoutX="580.0" layoutY="20.0" onAction="#retourAccueil" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #888888; -fx-background-radius: 20; -fx-cursor: hand;" text="Accueil" textFill="WHITE" />
+
+        <Label layoutX="250.0" layoutY="70.0" text="Créer un devis type" textFill="#333333">
+            <font><Font name="System Bold" size="28.0" /></font>
+        </Label>
+
+        <GridPane hgap="15.0" layoutX="140.0" layoutY="130.0" vgap="20.0">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="250.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="35.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Label text="Catégorie prestation :" textFill="#333333">
+                    <font><Font name="System Bold" size="14.0" /></font></Label>
+                <ComboBox fx:id="categorieCombo" prefWidth="250.0" promptText="Sélectionner..." style="-fx-background-color: white;" GridPane.columnIndex="1" />
+
+                <Label text="Prestataire :" textFill="#333333" GridPane.rowIndex="1">
+                    <font><Font name="System Bold" size="14.0" /></font></Label>
+                <ComboBox fx:id="prestataireCombo" prefWidth="250.0" promptText="Choisir prestataire..." style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                <Label text="Quantité :" textFill="#333333" GridPane.rowIndex="2">
+                    <font><Font name="System Bold" size="14.0" /></font></Label>
+                <Spinner fx:id="quantiteSpinner" prefWidth="80.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            </children>
+        </GridPane>
+
+        <TableView fx:id="prestationTable" layoutX="40.0" layoutY="280.0" prefHeight="180.0" prefWidth="670.0" style="-fx-background-color: transparent;">
+            <columns>
+                <TableColumn fx:id="colPrestation" prefWidth="180.0" text="Prestation" />
+                <TableColumn fx:id="colCategorie" prefWidth="130.0" text="Categorie" />
+                <TableColumn fx:id="colQuantite" prefWidth="80.0" text="quantité" />
+                <TableColumn fx:id="colPrixUnitaire" prefWidth="100.0" text="prix unité" />
+                <TableColumn fx:id="colTotal" prefWidth="100.0" text="total" />
+                <TableColumn fx:id="colAction" prefWidth="75.0" text="Action" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+
+        <HBox alignment="CENTER_RIGHT" layoutX="500.0" layoutY="470.0" spacing="10.0">
+            <children>
+                <Label text="total :" textFill="#333333">
+                    <font><Font name="System Bold" size="18.0" /></font>
+                </Label>
+                <Label fx:id="labelTotalFinal" text="0.00 €" textFill="#3B5FA0">
+                    <font><Font name="System Bold" size="22.0" /></font>
+                </Label>
+            </children>
+        </HBox>
+
+        <Button layoutX="315.0" layoutY="495.0" onAction="#validerDevis" prefHeight="35.0" prefWidth="120.0" style="-fx-background-color: #3B5FA0; -fx-background-radius: 15;" text="Valider" textFill="WHITE">
+            <font><Font name="System Bold" size="14.0" /></font>
+        </Button>
+    </children>
+</AnchorPane>

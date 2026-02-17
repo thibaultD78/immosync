@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="450.0" prefWidth="700.0" style="-fx-background-color: #DDE1E7;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.immosync.immosyncapp.controller.creation_ChantierController">
+    <children>
+        <Label layoutX="25.0" layoutY="25.0" text="IMMO" textFill="#2C3E50">
+            <font><Font name="System Bold" size="20.0" /></font>
+        </Label>
+        <Label layoutX="85.0" layoutY="25.0" text="SYNC" textFill="#FF9F1C">
+            <font><Font name="System Bold" size="20.0" /></font>
+        </Label>
+
+        <Button layoutX="530.0" layoutY="25.0" mnemonicParsing="false" onAction="#retourAccueil" prefHeight="35.0" prefWidth="140.0" style="-fx-background-color: #888888; -fx-background-radius: 20; -fx-cursor: hand;" text="Accueil" textFill="WHITE">
+            <font><Font name="System Bold" size="13.0" /></font>
+        </Button>
+
+        <Label layoutX="233.0" layoutY="85.0" text="Créer un chantier" textFill="#333333">
+            <font><Font name="System Bold" size="28.0" /></font>
+        </Label>
+
+        <VBox layoutX="215.0" layoutY="150.0" prefWidth="270.0" spacing="25.0">
+            <children>
+                <VBox spacing="8.0">
+                    <children>
+                        <Label text="bien" textFill="#333333">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Label>
+                        <ComboBox fx:id="bienCombo" prefHeight="35.0" prefWidth="270.0" promptText="Sélectionner un bien..." style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: #cccccc; -fx-border-radius: 5;" />
+                    </children>
+                </VBox>
+
+                <VBox spacing="8.0">
+                    <children>
+                        <Label text="Inspecteur" textFill="#333333">
+                            <font><Font name="System Bold" size="16.0" /></font>
+                        </Label>
+                        <ComboBox fx:id="inspecteurCombo" prefHeight="35.0" prefWidth="270.0" promptText="Sélectionner un inspecteur..." style="-fx-background-color: white; -fx-background-radius: 5; -fx-border-color: #cccccc; -fx-border-radius: 5;" />
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+
+        <Button layoutX="265.0" layoutY="370.0" mnemonicParsing="false" onAction="#handleCreerDevis" prefHeight="40.0" prefWidth="170.0" style="-fx-background-color: #3B5FA0; -fx-background-radius: 20; -fx-cursor: hand;" text="Créer devis type" textFill="WHITE">
+            <font><Font name="System Bold" size="14.0" /></font>
+        </Button>
+    </children>
+</AnchorPane>
