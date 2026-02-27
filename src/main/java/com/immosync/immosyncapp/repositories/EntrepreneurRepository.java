@@ -8,17 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @Repository
 public interface EntrepreneurRepository extends JpaRepository<Entrepreneur, Integer> {
 
-    @Query("""
-        SELECT e FROM Entrepreneur e 
-        WHERE NOT EXISTS (
-            SELECT DISTINCT p.categorie FROM DevisTypePrestation dtp 
-            JOIN dtp.prestataire p 
-            WHERE dtp.devisType.id = :devisId
-            AND p.categorie NOT MEMBER OF e.categories 
-        )
-    """)
-    List<Entrepreneur> findEntrepreneursByDevisRequirements(@Param("devisId") Integer devisId);
+    @Query("SELECT DISTINCT e FROM Entrepreneur e LEFT JOIN FETCH e.categories")
+    List<Entrepreneur> findAllWithCategories();
+    @Query("SELECT DISTINCT e FROM Entrepreneur e " + "LEFT JOIN FETCH e.categories " + "LEFT JOIN FETCH e.devisTypes")
+    List<Entrepreneur> findAllWithCategoriesAndDevis();
+
 }
+

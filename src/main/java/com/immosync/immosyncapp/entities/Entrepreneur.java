@@ -38,9 +38,19 @@ public class Entrepreneur {
     private Set<DevisEntrepreneur> devisEntrepreneurs = new LinkedHashSet<>();
 
     @ManyToMany
+    @JoinTable(
+            name = "devis_type_entrepreneur", // C'est ici que ça bloquait !
+            joinColumns = @JoinColumn(name = "entrepreneur_id"),
+            inverseJoinColumns = @JoinColumn(name = "devis_type_id")
+    )
     private Set<DevisType> devisTypes = new LinkedHashSet<>();
 
     @ManyToMany
+    @JoinTable(
+            name = "entrepreneur_categorie",
+            joinColumns = @JoinColumn(name = "entrepreneur_id"),
+            inverseJoinColumns = @JoinColumn(name = "categorie_id")
+    )
     private Set<Categorie> categories = new LinkedHashSet<>();
 
     @ManyToMany

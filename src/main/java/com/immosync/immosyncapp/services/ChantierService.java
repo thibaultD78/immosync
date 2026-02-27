@@ -21,31 +21,32 @@ public class ChantierService {
     private final DevisTypeRepository devisTypeRepository;
     private final DevisTypePrestationRepository dtpRepository;
     private final EntrepreneurRepository entrepreneurRepository;
+    private final ApiService apiService;
 
     public ChantierService(ChantierRepository chantierRepository,
                            DevisTypeRepository devisTypeRepository,
-                           DevisTypePrestationRepository dtpRepository, EntrepreneurRepository entrepreneurRepository) {
+                           DevisTypePrestationRepository dtpRepository, EntrepreneurRepository entrepreneurRepository, ApiService apiService) {
         this.chantierRepository = chantierRepository;
         this.devisTypeRepository = devisTypeRepository;
         this.dtpRepository = dtpRepository;
         this.entrepreneurRepository = entrepreneurRepository;
+        this.apiService = apiService;
     }
 
-    public void creerChantierComplet(String description, Bien bien, Inspecteur inspecteur, Map<Prestataire, Integer> lignesPrestations) {
+    public DevisType creerChantierComplet(String description, Bien bien, Inspecteur inspecteur, Map<Prestataire, Integer> lignesPrestations) {
+
         Chantier chantier = new Chantier();
         chantier.setDescription(description);
         chantier.setBien(bien);
         chantier.setInspecteur(inspecteur);
         chantier.setDateCreation(Instant.now());
         chantier.setStatut("OUVERT");
-
         chantier = chantierRepository.save(chantier);
 
         DevisType devis = new DevisType();
         devis.setIntitule("Devis Type - " + bien.getAdresse());
         devis.setDateCreation(Instant.now());
         devis.setChantier(chantier);
-
         devis = devisTypeRepository.save(devis);
 
         for (Map.Entry<Prestataire, Integer> entry : lignesPrestations.entrySet()) {
@@ -53,32 +54,41 @@ public class ChantierService {
             dtp.setDevisType(devis);
             dtp.setPrestataire(entry.getKey());
             dtp.setQuantite(entry.getValue());
-
             dtpRepository.save(dtp);
         }
+
+        return devis;
     }
-    public List<Entrepreneur> trouverEntrepreneursEligibles(Integer chantierId) {
-        Chantier chantier = chantierRepository.findById(chantierId)
-                .orElseThrow(() -> new RuntimeException("Chantier introuvable"));
+    public List<Entrepreneur> trouverEntrepreneursQualifies(Integer devisTypeId) {
+        DevisType devis = devisTypeRepository.findByIdWithPrestations(devisTypeId)
+                .orElseThrow(() -> new RuntimeException("Devis Type introuvable"));
+        String villeChantier = devis.getChantier().getBien().getVille();
 
-        DevisType devis = chantier.getDevisTypes().iterator().next();
-
-        return entrepreneurRepository.findEntrepreneursByDevisRequirements(devis.getId());
-    }
-
-    public List<Entrepreneur> trouverEntrepreneursQualifies(Chantier chantier) {
-        // 1. On récupère toutes les catégories requises dans les devis types du chantier
-        Set<Categorie> categoriesRequises = chantier.getDevisTypes().stream()
-                .flatMap(dt -> dt.getLigneDevisTypes().stream()) // On suppose que DevisType a des lignes
-                .map(LigneDevisType::getCategorie)               // Chaque ligne a une catégorie
+        Set<Integer> categoriesRequisesIds = devis.getDevisTypePrestations().stream()
+                .map(dtp -> dtp.getPrestataire().getCategorie().getId())
                 .collect(Collectors.toSet());
 
-        // 2. On récupère tous les entrepreneurs
-        List<Entrepreneur> tousLesEntrepreneurs = entrepreneurRepository.findAll();
+        List<Entrepreneur> tousLesEntrepreneurs = entrepreneurRepository.findAllWithCategoriesAndDevis();
 
-        // 3. On filtre : l'entrepreneur doit posséder TOUTES les catégories requises
-        return tousLesEntrepreneurs.stream()
-                .filter(e -> e.getCategories().containsAll(categoriesRequises))
-                .collect(Collectors.toList());
+        List<Entrepreneur> eligibles = tousLesEntrepreneurs.stream()
+                .filter(e -> {
+                    Set<Integer> expertiseIds = e.getCategories().stream()
+                            .map(Categorie::getId)
+                            .collect(Collectors.toSet());
+                    return expertiseIds.containsAll(categoriesRequisesIds);
+                })
+                .filter(e -> {
+                    double distance = apiService.getDistanceKm(villeChantier, e.getVille());
+                    System.out.println("Distance entre " + villeChantier + " et " + e.getNom() + " (" + e.getVille() + ") : " + distance + " km");
+
+                    return distance >= 0 && distance <= 30.0;})
+                .toList();
+        for (Entrepreneur entrepreneur : eligibles) {
+            entrepreneur.getDevisTypes().add(devis);
+            entrepreneurRepository.save(entrepreneur);
+        }
+
+        return eligibles;
     }
+
 }

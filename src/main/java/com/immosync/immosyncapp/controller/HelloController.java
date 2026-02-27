@@ -65,7 +65,6 @@ public class HelloController implements Initializable{
 
     private Integer idBienActuel;
     private Map<Prestataire, Integer> prestationsSelectionnees = new HashMap<>();
-
     private final ChantierService chantierService;
     private final UtilisateurService userService;
     private final BienService bienService;
@@ -157,17 +156,20 @@ public class HelloController implements Initializable{
     }
 
     @FXML
-    private void handleValiderChantier(String description, Bien bien,Inspecteur inspec) {
+    private DevisType handleValiderChantier(String description, Bien bien, Inspecteur inspec) {
         try {
-            chantierService.creerChantierComplet(
+            // On récupère le retour du service
+            DevisType devis = chantierService.creerChantierComplet(
                     description,
                     bien,
                     inspec,
                     prestationsSelectionnees
             );
             System.out.println("Tout a été créé en base !");
+            return devis;
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
     }
     private void initPageDevis() {
@@ -339,16 +341,37 @@ public class HelloController implements Initializable{
         initPageDevis();
     }
 
+    @FXML
     public void validerDevis(MouseEvent mouseEvent) {
         if (prestationsSelectionnees.isEmpty()) {
             System.err.println("Le devis est vide !");
             return;
         }
-        handleValiderChantier("Chantier créé via l'app", (Bien) bienCombo.getValue(), (Inspecteur) inspecteurCombo.getValue());
-        //chantierService.trouverEntrepreneursEligibles(/*id du chantier*/)
-        System.out.println("Chantier et Devis enregistrés !");
-        retourAccueil(mouseEvent);
 
+        // On récupère le devis créé pour pouvoir chercher les entrepreneurs
+        DevisType devisCree = handleValiderChantier(
+                "Chantier créé via l'app",
+                (Bien) bienCombo.getValue(),
+                (Inspecteur) inspecteurCombo.getValue()
+        );
+
+        if (devisCree != null) {
+            // LOGIQUE MÉTIER : Trouver les entrepreneurs qui savent tout faire
+            List<Entrepreneur> eligibles = chantierService.trouverEntrepreneursQualifies(devisCree.getId());
+
+            System.out.println("Chantier et Devis enregistrés !");
+            System.out.println("Nombre d'entrepreneurs éligibles trouvés : " + eligibles.size());
+
+            // Affichage des résultats pour test
+            for (Entrepreneur ent : eligibles) {
+                System.out.println("Entrepreneur qualifié : " + ent.getNom());
+            }
+
+            // Ici, tu peux par exemple ouvrir une nouvelle fenêtre pour afficher ces entrepreneurs
+            // ou envoyer un email automatique.
+        }
+
+        retourAccueil(mouseEvent);
     }
 
     public void ListeBiens(MouseEvent mouseEvent) {

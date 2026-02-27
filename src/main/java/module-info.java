@@ -10,4 +10,6 @@ open module com.immosync.immosyncapp {
     requires org.hibernate.orm.core;
     requires spring.data.commons;
     requires spring.tx;
+    requires java.net.http;
+    requires org.json;
 }
